@@ -5,10 +5,11 @@ RUN bun i --no-save --ignore-scripts
 RUN bun nx build api
 
 
-FROM oven/bun  AS Service
+FROM oven/bun AS Service
 WORKDIR /app/
 COPY --from=Builder /app/node_modules ./node_modules
 COPY --from=Builder /app/package.json ./package.json
+RUN mkdir -p ./dist/apps/api
 COPY --from=Builder /app/dist/apps/api ./dist/apps/api
 COPY --from=Builder /app/libs/api/models/src/prisma/schema.prisma ./libs/api/models/src/prisma/schema.prisma
 
