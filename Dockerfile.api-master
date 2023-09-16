@@ -1,11 +1,11 @@
-FROM node:20-alpine AS Builder
+FROM oven/bun AS Builder
 WORKDIR /app
 COPY . .
-RUN yarn install --frozen-lockfile --ignore-scripts
-RUN  yarn nx build api
+RUN bun install --ignore-scripts
+RUN bun nx build api
 
 
-FROM node:20-alpine AS Service
+FROM Builder AS Service
 WORKDIR /app/
 COPY --from=Builder /app/node_modules ./node_modules
 COPY --from=Builder /app/package.json ./package.json
@@ -22,4 +22,4 @@ ENV REDIS_PORT ${REDIS_PORT}
 ENV REDIS_PASSWORD ${REDIS_PASSWORD}
 ENV REDIS_USERNAME ${REDIS_USERNAME}
 EXPOSE ${PORT}
-CMD yarn prisma generate && node /app/dist/apps/api/main.js
+CMD bun prisma generate && node /app/dist/apps/api/main.js
