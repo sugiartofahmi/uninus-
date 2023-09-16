@@ -7,7 +7,7 @@ RUN yarn nx build api
 
 FROM node:20-alpine AS Service
 WORKDIR /app/
-RUN echo $(ls /app)
+RUN --from=Builder ls -l /app
 COPY --from=Builder /app/node_modules ./node_modules
 COPY --from=Builder /app/package.json ./package.json
 COPY --from=Builder /app/dist/apps/api ./src
