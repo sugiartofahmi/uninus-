@@ -3,7 +3,6 @@ WORKDIR /app
 COPY . .
 RUN apk --no-cache add python3 git
 RUN yarn install --frozen-lockfile --ignore-scripts
-RUN yarn add argon2
 RUN npm -g install node-pre-gyp --unsafe-perm
 RUN node-pre-gyp rebuild -C ./node_modules/argon2
 RUN yarn prisma generate 
