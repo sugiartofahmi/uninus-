@@ -1,7 +1,11 @@
 FROM node:18.17.1-alpine3.17 AS Builder
 WORKDIR /app
 COPY . .
-RUN apk --no-cache add python3 make gcc
+RUN apk --no-cache --virtual build-dependencies add \
+    python \
+    make \
+    g++ \
+    && apk del build-dependencies
 RUN yarn install --frozen-lockfile --ignore-scripts
 RUN npm -g install node-pre-gyp --unsafe-perm
 RUN node-pre-gyp rebuild -C ./node_modules/argon2
