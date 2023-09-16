@@ -12,7 +12,6 @@ RUN node-pre-gyp rebuild -C ./node_modules/argon2
 RUN yarn prisma generate 
 RUN yarn nx build api-auth
 
-
 FROM node:18.17.1-alpine3.17 AS Service
 WORKDIR /app/
 COPY --from=Builder /app/node_modules ./node_modules
