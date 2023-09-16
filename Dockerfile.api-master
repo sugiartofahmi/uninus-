@@ -1,9 +1,10 @@
 FROM node:20-alpine AS Builder
 WORKDIR /app
 COPY . .
-RUN  yarn global add bun
-RUN bun i --no-save --ignore-scripts
-RUN bun nx build api
+RUN curl -fsSL https://bun.sh/install | bash && \
+    source ~/.profile && \
+    bun i --no-save --ignore-scripts && \
+    bun nx build api
 
 
 FROM node:20-alpine AS Service
