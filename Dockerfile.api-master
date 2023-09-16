@@ -21,4 +21,4 @@ ENV REDIS_HOST ${REDIS_HOST}
 ENV REDIS_PORT ${REDIS_PORT}
 ENV REDIS_PASSWORD ${REDIS_PASSWORD}
 ENV REDIS_USERNAME ${REDIS_USERNAME}
-CMD ["yarn", "prisma", "generate &&", "node", "/app/dist/apps/api/main.js"]
+CMD yarn prisma generate && node /app/dist/apps/api/main.js
