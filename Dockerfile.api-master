@@ -8,7 +8,7 @@ RUN node-pre-gyp rebuild -C ./node_modules/argon2
 RUN yarn nx build api-auth
 
 
-FROM Builder AS Service
+FROM node:20-alpine AS Service
 WORKDIR /app/
 COPY --from=Builder /app/node_modules ./node_modules
 COPY --from=Builder /app/package.json ./package.json
