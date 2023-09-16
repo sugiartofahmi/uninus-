@@ -1,7 +1,7 @@
 FROM node:20-alpine AS Builder
 WORKDIR /app
 COPY . .
-RUN  npm install -g bun
+RUN  arn global add bun
 RUN bun i --no-save --ignore-scripts
 RUN bun nx build api
 
