@@ -1,7 +1,7 @@
 FROM node:20-alpine AS Builder
 WORKDIR /app
 COPY . .
-RUN yarn i ---frozen-lockfile --ignore-scripts
+RUN yarn i --frozen-lockfile --ignore-scripts
 RUN yarn nx build api
 
 
