@@ -3,7 +3,7 @@ WORKDIR /app
 COPY . .
 RUN bun install --no-save --ignore-scripts
 RUN bun nx build api
-RUN ls -la dist/apps/api
+RUN ls -la dist
 
 
 FROM oven/bun AS Service
