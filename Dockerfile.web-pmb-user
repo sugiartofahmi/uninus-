@@ -5,11 +5,6 @@ RUN yarn install --frozen-lockfile --ignore-scripts
 RUN yarn prisma generate
 RUN yarn nx build web-pmb-user --prod
 
-NEXTAUTH_SECRET=anjay-mabar-waduh
-NEXTAUTH_URL=https://pmb.dev.uninus.ac.id
-NEXT_PUBLIC_API_URL=https://api.dev.uninus.ac.id/api/
-NEXT_PUBLIC_WORKSPACE=user
-NODE_ENV=production
 FROM node:18.17.1-alpine3.17 AS Service
 WORKDIR /app/
 COPY --from=Builder /app .
