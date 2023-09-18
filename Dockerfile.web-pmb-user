@@ -1,10 +1,10 @@
 FROM node:18.17.1-alpine3.17 AS Builder
-RUN apk add --no-cache libc6-compat
 WORKDIR /app
 COPY . .
 RUN rm -f yarn.lock
 RUN yarn install --frozen-lockfile --ignore-scripts
 RUN yarn prisma generate
+RUN yarn global add sharp --ignore-scripts
 RUN yarn nx build web-pmb-user --prod
 
 FROM node:18.17.1-alpine3.17 AS Service
@@ -14,7 +14,6 @@ COPY --from=Builder /app/package.json ./package.json
 COPY --from=Builder /app/nx.json ./nx.json
 COPY --from=Builder /app/dist/apps/web/pmb/user ./dist/apps/web/pmb/user
 COPY --from=Builder /app/apps/web/pmb/user ./apps/web/pmb/user
-ENV HOST=0.0.0.0
 ENV PORT ${PORT}
 ENV NODE_ENV ${NODE_ENV}
 ENV NEXTAUTH_SECRET ${NEXTAUTH_SECRET}
@@ -22,7 +21,6 @@ ENV NEXTAUTH_URL ${NEXTAUTH_URL}
 ENV NEXT_PUBLIC_API_URL ${NEXT_PUBLIC_API_URL}
 ENV NEXT_PUBLIC_WORKSPACE ${NEXT_PUBLIC_WORKSPACE}
 EXPOSE ${PORT}
-RUN yarn global add sharp --ignore-scripts
 CMD yarn nx serve web-pmb-user --prod --port ${PORT}
 
 
