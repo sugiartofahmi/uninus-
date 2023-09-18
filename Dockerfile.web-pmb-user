@@ -2,6 +2,7 @@ FROM node:18.17.1-alpine3.17 AS Builder
 WORKDIR /app
 COPY . .
 RUN rm -f yarn.lock
+RUN npm i -g npm@latest
 RUN npm i -g bun --omit=optional
 RUN bun install --frozen-lockfile --ignore-scripts
 RUN bun prisma generate
