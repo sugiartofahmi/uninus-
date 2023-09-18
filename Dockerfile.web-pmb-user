@@ -2,8 +2,7 @@ FROM oven/bun AS Builder
 WORKDIR /app
 COPY . .
 RUN bun install --frozen-lockfile --ignore-scripts
-RUN bun prisma generate
-RUN bun nx build web-pmb-admin
+RUN bun prisma generate \ && bun nx build web-pmb-admin
 
 FROM oven/bun AS Service
 WORKDIR /app/
@@ -16,7 +15,7 @@ ENV NEXT_PUBLIC_API_URL ${NEXT_PUBLIC_API_URL}
 ENV NEXT_PUBLIC_WORKSPACE ${NEXT_PUBLIC_WORKSPACE}
 EXPOSE ${PORT}
 RUN bun add sharp --ignore-scripts
-CMD bun nx serve web-pmb-admin --prod --port ${PORT}
+CMD bun yarn nx serve web-pmb-admin --prod --port ${PORT}
 
 
 
