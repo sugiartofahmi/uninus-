@@ -9,12 +9,11 @@ FROM node:18.17.1-alpine3.17 AS Service
 WORKDIR /app/
 COPY --from=Builder /app ./
 ENV PORT=$PORT
-ENV NODE_ENV=$NODE_ENV
-ENV NEXTAUTH_SECRET=$NEXTAUTH_SECRET
-ENV NEXTAUTH_URL=$NEXTAUTH_URL
-ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
-ENV NEXT_PUBLIC_WORKSPACE=$NEXT_PUBLIC_WORKSPACE
-RUN echo "$NEXT_PUBLIC_API_URL"
+ENV NODE_ENV=production
+ENV NEXTAUTH_SECRET=anjay-mabar-waduh
+ENV NEXTAUTH_URL=https://uninus-production-0e27.up.railway.app/
+ENV NEXT_PUBLIC_API_URL=https://api.dev.uninus.ac.id/api/
+ENV NEXT_PUBLIC_WORKSPACE=user
 EXPOSE $PORT
 CMD yarn nx serve web-pmb-user --prod --port $PORT
 
