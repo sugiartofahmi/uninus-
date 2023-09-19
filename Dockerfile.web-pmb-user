@@ -13,7 +13,8 @@ ENV NEXTAUTH_URL $NEXTAUTH_URL
 ENV NEXT_PUBLIC_API_URL $NEXT_PUBLIC_API_URL
 ENV NEXT_PUBLIC_WORKSPACE $NEXT_PUBLIC_WORKSPACE
 EXPOSE $PORT
-CMD echo $NEXT_PUBLIC_API_URL && yarn nx serve web-pmb-user --configuration=production --port $PORT
+RUN yarn add sharp --ignore-scripts
+CMD echo $NEXT_PUBLIC_API_URL && echo $NEXT_PUBLIC_WORKSPACE &&  yarn nx serve web-pmb-user --configuration=production --port $PORT
 
 
 
