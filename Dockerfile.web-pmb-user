@@ -15,7 +15,7 @@ ENV NEXTAUTH_URL=https://uninus-production-0e27.up.railway.app/
 ENV NEXT_PUBLIC_API_URL=https://api.dev.uninus.ac.id/api/
 ENV NEXT_PUBLIC_WORKSPACE=user
 EXPOSE $PORT
-CMD yarn nx serve web-pmb-user --prod --port $PORT
+CMD yarn nx serve web-pmb-user --configuration production --port $PORT
 
 
 
