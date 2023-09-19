@@ -1,11 +1,11 @@
-FROM oven/bun AS Builder
+FROM node:18.17.1-alpine3.17 AS Builder
 WORKDIR /app
 COPY . .
-RUN bun install --frozen-lockfile --ignore-scripts
-RUN bun prisma generate
-RUN bun nx build web-pmb-user --prod
+RUN yarn install --frozen-lockfile --ignore-scripts
+RUN yarn prisma generate
+RUN yarn nx build web-pmb-user --prod
 
-FROM oven/bun AS Service
+FROM node:18.17.1-alpine3.17 AS Service
 WORKDIR /app/
 COPY --from=Builder /app ./
 ENV PORT=$PORT
@@ -16,6 +16,6 @@ ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
 ENV NEXT_PUBLIC_WORKSPACE=$NEXT_PUBLIC_WORKSPACE
 RUN echo "$NEXT_PUBLIC_API_URL"
 EXPOSE $PORT
-CMD bunx nx serve web-pmb-user --prod --port $PORT
+CMD yarn nx serve web-pmb-user --prod --port $PORT
 
 
