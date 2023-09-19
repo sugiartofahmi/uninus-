@@ -2,7 +2,7 @@ FROM oven/bun AS Builder
 WORKDIR /app
 COPY . .
 RUN bun install --frozen-lockfile --ignore-scripts
-RUN bunx prisma generate \ && bunx nx build web-pmb-admin
+RUN bun prisma generate \ && bun nx build web-pmb-admin
 
 FROM oven/bun AS Service
 WORKDIR /app/
